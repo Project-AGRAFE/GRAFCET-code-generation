@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.language.plccode/src" modelPluginID="org.emftext.language.plccode"
+    modelName="Plccode" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>plccode.ecore</foreignModel>
+  <genPackages prefix="Plccode" disposableProviderFactory="true" ecorePackage="plccode.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="plccode.ecore#//DeclarationType">
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/GLOBAL"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/INPUT"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/OUTPUT"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/IN_OUT"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/TEMP"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//DeclarationType/LOCAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="plccode.ecore#//TimeType">
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//TimeType/Seconds"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//TimeType/Milliseconds"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="plccode.ecore#//VarType">
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//VarType/BOOL"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//VarType/INT"/>
+      <genEnumLiterals ecoreEnumLiteral="plccode.ecore#//VarType/REAL"/>
+    </genEnums>
+    <genClasses ecoreClass="plccode.ecore#//ProgramOrganisationUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//ProgramOrganisationUnit/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//ProgramOrganisationUnit/interface"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Specification"/>
+    <genClasses ecoreClass="plccode.ecore#//FunctionBlock"/>
+    <genClasses ecoreClass="plccode.ecore#//Function"/>
+    <genClasses ecoreClass="plccode.ecore#//Structure"/>
+    <genClasses ecoreClass="plccode.ecore#//StructuredText">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//StructuredText/embeddedStatements"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//If">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//If/else"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//If/elsif"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//If/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//While">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//While/breakCondition"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//ElsIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//ElsIf/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Else"/>
+    <genClasses ecoreClass="plccode.ecore#//Expression"/>
+    <genClasses ecoreClass="plccode.ecore#//Statement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Statement/embeddedStatements"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Comment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Comment/text"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Condition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Condition/term"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Call">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Call/instanceName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Call/instanceVars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//EmptyExpresion"/>
+    <genClasses ecoreClass="plccode.ecore#//Program"/>
+    <genClasses ecoreClass="plccode.ecore#//Project">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Project/units"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Project/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Project/globalVars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//PouProgram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//PouProgram/specification"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Declaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Declaration/inputVars"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Declaration/outputVars"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//Declaration/localVars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//InputVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//InputVariable/vars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//OutputVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//OutputVariable/vars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//LocalVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//LocalVariable/vars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//PlcVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//PlcVariable/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//PlcVariable/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//PlcVariable/initialValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//PlcVariable/documentation"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Type"/>
+    <genClasses ecoreClass="plccode.ecore#//BOOL"/>
+    <genClasses ecoreClass="plccode.ecore#//INT"/>
+    <genClasses ecoreClass="plccode.ecore#//REAL"/>
+    <genClasses ecoreClass="plccode.ecore#//Derived">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Derived/name"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//InitialValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//InitialValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//TIME"/>
+    <genClasses ecoreClass="plccode.ecore#//Documentation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Documentation/docuText"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//GlobalVarList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//GlobalVarList/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference plccode.ecore#//GlobalVarList/vars"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//Assignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Assignment/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//Assignment/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//BooleanAssignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//BooleanAssignment/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//BooleanAssignment/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="plccode.ecore#//SuperAssignment"/>
+    <genClasses ecoreClass="plccode.ecore#//TimeAssignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//TimeAssignment/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//TimeAssignment/timeType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute plccode.ecore#//TimeAssignment/variable"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

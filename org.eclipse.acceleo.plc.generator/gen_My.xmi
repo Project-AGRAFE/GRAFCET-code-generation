@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ASCII"?>
+<plccode:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:plccode="platform:/plugin/org.emftext.language.plccode/metamodel/plccode.ecore" name="My">
+  <units xsi:type="plccode:FunctionBlock" name="Grafcet_Control">
+    <interface>
+      <inputVars>
+        <vars name="Enable">
+          <type xsi:type="plccode:BOOL"/>
+          <initialValue value="false"/>
+        </vars>
+        <vars name="Init">
+          <type xsi:type="plccode:BOOL"/>
+          <initialValue value="false"/>
+        </vars>
+        <vars name="End">
+          <type xsi:type="plccode:BOOL"/>
+          <initialValue value="false"/>
+        </vars>
+      </inputVars>
+      <localVars>
+        <vars name="StableState">
+          <type xsi:type="plccode:BOOL"/>
+          <initialValue value="false"/>
+        </vars>
+        <vars name="TranLoops">
+          <type xsi:type="plccode:INT"/>
+          <initialValue value="0"/>
+        </vars>
+        <vars name="NumTran">
+          <type xsi:type="plccode:INT"/>
+          <initialValue value="0"/>
+        </vars>
+      </localVars>
+    </interface>
+    <specification xsi:type="plccode:StructuredText">
+      <embeddedStatements xsi:type="plccode:If">
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" value="true" variable="Step_1"/>
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="actStep_1"/>
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="deactStep_1"/>
+        <condition term="Init"/>
+      </embeddedStatements>
+      <embeddedStatements xsi:type="plccode:If">
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="Step_1"/>
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="actStep_1"/>
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="deactStep_1"/>
+        <condition term="End"/>
+      </embeddedStatements>
+      <embeddedStatements xsi:type="plccode:If">
+        <embeddedStatements xsi:type="plccode:Assignment" value="(0)" variable="TranLoops"/>
+        <embeddedStatements xsi:type="plccode:BooleanAssignment" value="true" variable="StableState"/>
+        <embeddedStatements xsi:type="plccode:While">
+          <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="StableState"/>
+          <embeddedStatements xsi:type="plccode:Assignment" value="(TranLoops+1)" variable="TranLoops"/>
+          <embeddedStatements xsi:type="plccode:If">
+            <condition term="((INIT=FALSE)AND(END=FALSE))"/>
+          </embeddedStatements>
+          <embeddedStatements xsi:type="plccode:If">
+            <embeddedStatements xsi:type="plccode:If">
+              <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="actStep_1"/>
+              <condition term="actStep_1"/>
+            </embeddedStatements>
+            <embeddedStatements xsi:type="plccode:If">
+              <condition term="Step_1"/>
+            </embeddedStatements>
+            <embeddedStatements xsi:type="plccode:If">
+              <embeddedStatements xsi:type="plccode:BooleanAssignment" variable="deactStep_1"/>
+              <condition term="deactStep_1"/>
+            </embeddedStatements>
+            <condition term="(actStep_1)OR(Step_1)OR(deactStep_1)"/>
+          </embeddedStatements>
+          <breakCondition term="((StableState)AND(TranLoops&lt;NumTran))"/>
+        </embeddedStatements>
+        <condition term="(Enable)"/>
+      </embeddedStatements>
+    </specification>
+  </units>
+  <globalVars name="Global_GrafcetSteps">
+    <vars name="actStep_1">
+      <type xsi:type="plccode:BOOL"/>
+      <initialValue value="false"/>
+    </vars>
+    <vars name="deactStep_1">
+      <type xsi:type="plccode:BOOL"/>
+      <initialValue value="false"/>
+    </vars>
+    <vars name="Step_1">
+      <type xsi:type="plccode:BOOL"/>
+      <initialValue value="false"/>
+    </vars>
+  </globalVars>
+  <globalVars name="Global_GrafcetParts">
+    <vars name="Global_Grafcet">
+      <type xsi:type="plccode:Derived" name="Grafcet_Control"/>
+    </vars>
+  </globalVars>
+</plccode:Project>

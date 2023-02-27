@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP7 Patch 2" creationDateTime="2018-07-08T13:58:46.9898301" />
+  <contentHeader name="PLCOpen_Leer.project" modificationDateTime="2018-07-08T13:57:47.963454">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+
+
+		  <pou name="GlobalFB" pouType="FunctionBlock">
+		    <interface>
+		  	  <inputVars>
+		  	  	<variable name="End">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="Init">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="Enable">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	    </inputVars>
+		  	  <localVars>
+		  	  	<variable name="TransLoop">
+		  	  	  <type>
+		  	  		  <INT />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="NumTrans">
+		  	  	  <type>
+		  	  		  <INT />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="stableState">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="T_2">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="T_1">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="T_3">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	  	<variable name="T_4">
+		  	  	  <type>
+		  	  		  <BOOL />
+		  	  	  </type>
+		  	  	</variable>
+		  	  	
+		  	    </localVars>
+		  	
+		    </interface>
+		    <body>
+		  	<ST>
+		  	  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+		  		IF enable THEN
+		  			WHILE  DO
+		  			IF (NOT(init))AND(NOT(end)) THEN
+		  				IF (DI_2)AND(T_2) THEN
+		  					stableState := true;
+		  					actStep_3 := true;
+		  					Step_3 := true;
+		  					deactStep_3 := false;
+		  					actStep_2 := false;
+		  					deactStep_2 := true;
+		  					Step_2 := false;
+		  				END_IF
+		  				IF ((actStep_1)AND(Step_1)AND(deactStep_1)) THEN
+		  					IF actStep_1 THEN
+		  						actStep_1 := false;
+		  					END_IF
+		  					IF deactStep_1 THEN
+		  						deactStep_1 := false;
+		  					END_IF
+		  					IF Step_1 THEN
+		  						;
+		  					END_IF
+		  				END_IF
+		  				IF ((actStep_3)AND(Step_3)AND(deactStep_3)) THEN
+		  					IF actStep_3 THEN
+		  						actStep_3 := false;
+		  					END_IF
+		  					IF deactStep_3 THEN
+		  						deactStep_3 := false;
+		  					END_IF
+		  					IF Step_3 THEN
+		  						;
+		  					END_IF
+		  				END_IF
+		  				IF ((actEnStep_4)AND(EnStep_4)AND(deactEnStep_4)) THEN
+		  					IF deactEnStep_4 THEN
+		  						deactEnStep_4 := false;
+		  					END_IF
+		  					IF actEnStep_4 THEN
+		  						actEnStep_4 := false;
+		  					END_IF
+		  					IF EnStep_4 THEN
+		  						;
+		  					END_IF
+		  				END_IF
+		  				IF ((actStep_5)AND(Step_5)AND(deactStep_5)) THEN
+		  					IF actStep_5 THEN
+		  						actStep_5 := false;
+		  					END_IF
+		  					IF deactStep_5 THEN
+		  						deactStep_5 := false;
+		  					END_IF
+		  					IF Step_5 THEN
+		  						;
+		  					END_IF
+		  				END_IF
+		  				IF (DI_1)AND(T_1) THEN
+		  					stableState := true;
+		  					actStep_1 := false;
+		  					deactStep_1 := true;
+		  					Step_1 := false;
+		  					EnStep_4 := true;
+		  					actEnStep_4 := true;
+		  					deactEnStep_4 := false;
+		  					deactStep_2 := false;
+		  					Step_2 := true;
+		  					actStep_2 := true;
+		  				END_IF
+		  				T_1 := Step_1;
+		  				IF (DI_3)AND(T_3) THEN
+		  					stableState := true;
+		  					actStep_5 := true;
+		  					Step_5 := true;
+		  					deactStep_5 := false;
+		  					actEnStep_4 := false;
+		  					deactEnStep_4 := true;
+		  					EnStep_4 := false;
+		  					Step_3 := false;
+		  					deactStep_3 := true;
+		  					actStep_3 := false;
+		  				END_IF
+		  				IF (true)AND(T_4) THEN
+		  					stableState := true;
+		  					actStep_5 := false;
+		  					deactStep_5 := true;
+		  					Step_5 := false;
+		  					actStep_1 := true;
+		  					Step_1 := true;
+		  					deactStep_1 := false;
+		  				END_IF
+		  				T_3 := (TRUE);
+		  				IF ((actStep_2)AND(Step_2)AND(deactStep_2)) THEN
+		  					IF actStep_2 THEN
+		  						actStep_2 := false;
+		  					END_IF
+		  					IF deactStep_2 THEN
+		  						deactStep_2 := false;
+		  					END_IF
+		  					IF Step_2 THEN
+		  						;
+		  					END_IF
+		  				END_IF
+		  				T_4 := Step_5;
+		  				T_2 := Step_2;
+		  			END_IF
+		  			TransLoop := (TransLoop+1);
+		  			stableState := false;
+		  			END_WHILE;
+		  			TransLoop := (0);
+		  		END_IF
+		  		IF init THEN
+		  			Step_1 := false;
+		  			actStep_1 := false;
+		  			deactStep_1 := false;
+		  			actStep_3 := false;
+		  			deactStep_3 := false;
+		  			Step_3 := false;
+		  			EnStep_4 := true;
+		  			deactEnStep_4 := false;
+		  			actEnStep_4 := false;
+		  			actStep_5 := false;
+		  			deactStep_5 := false;
+		  			Step_5 := false;
+		  			actStep_2 := false;
+		  			deactStep_2 := false;
+		  			Step_2 := false;
+		  		END_IF
+		  		IF end THEN
+		  			actStep_1 := false;
+		  			deactStep_1 := false;
+		  			Step_1 := false;
+		  			Step_3 := false;
+		  			actStep_3 := false;
+		  			deactStep_3 := false;
+		  			deactEnStep_4 := false;
+		  			actEnStep_4 := false;
+		  			EnStep_4 := false;
+		  			Step_5 := false;
+		  			actStep_5 := false;
+		  			deactStep_5 := false;
+		  			Step_2 := false;
+		  			actStep_2 := false;
+		  			deactStep_2 := false;
+		  		END_IF
+		  		
+		  	  </xhtml>
+		  	</ST>
+		    </body>  	  <addData>
+		<data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+	  	  <ObjectId>bb10cf5f-d44b-48bf-ad52-f1059f71047f</ObjectId>
+		</data>
+  	  </addData>
+	  </pou>    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+	<addData>
+<data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
+		  	<globalVars name="globalVarList">
+			  <variable name="Step_1">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="deactStep_1">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="actStep_1">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="Step_3">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="deactStep_3">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="actStep_3">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="deactEnStep_4">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="EnStep_4">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="actEnStep_4">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="Step_5">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="deactStep_5">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="actStep_5">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="Step_2">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="deactStep_2">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+			  <variable name="actStep_2">
+			    <type>
+			  	  <BOOL />
+			    </type>
+			  </variable>
+			  
+              <addData>
+              	<data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>1d145e5f-1b71-4724-a8b2-1526a73ee712</ObjectId>
+              	</data>
+              </addData>
+          	</globalVars>
+		  </data>
+      <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      	<ProjectStructure>
+
+
+          <Object Name="globalVarList" ObjectId="1d145e5f-1b71-4724-a8b2-1526a73ee712" />
+
+
+		  <Object Name="GlobalFB" ObjectId="bb10cf5f-d44b-48bf-ad52-f1059f71047f" />
+
+      	</ProjectStructure>
+      </data>
+  	</addData>
+</project>

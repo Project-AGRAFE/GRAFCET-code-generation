@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.eclipse.emf.grafcet2plccode.contribution1"
+            nameFilter="*.grafcet"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               label="Grafcet"
+               path="additions"
+               id="org.eclipse.gmf.actions.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Generate PLC-Model"
+               class="org.eclipse.emf.grafcet2plccode.popup.actions.runGeneratePlcModel"
+               menubarPath="org.eclipse.gmf.actions.menu1/group1"
+               enablesFor="1"
+               id="org.eclipse.emf.grafcet2plccode.newAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

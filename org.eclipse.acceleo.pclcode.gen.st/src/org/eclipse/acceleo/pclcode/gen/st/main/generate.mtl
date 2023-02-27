@@ -1,0 +1,315 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.plcopen.org/xml/tc6_0201', 'platform:/plugin/org.emftext.language.plccode/metamodel/plccode.ecore')]
+
+[template public generateElement(Proj : Project) post(trim())]
+[comment @main/]
+[file (Proj.name + '.xml' , false, 'UTF-8')]
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP7 Patch 2" creationDateTime="2018-07-08T13:58:46.9898301" />
+  <contentHeader name="PLCOpen_Leer.project" modificationDateTime="2018-07-08T13:57:47.963454">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+[initCounter() /]
+[for (unit : ProgramOrganisationUnit | Proj.units) ]
+[addUpCounter() /]
+[if (unit.oclIsTypeOf(Program))][let p : Program = unit]
+		  [getProgram(p) /][/let][/if]
+[if (unit.oclIsTypeOf(Function))][let f : Function = unit]
+		  [getFunction(f) /][/let][/if]
+[if (unit.oclIsTypeOf(FunctionBlock))][let fb : FunctionBlock = unit]
+		  [getFunctionBlock(fb) /][/let][/if]
+  	  <addData>
+		<data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+	  	  <ObjectId>bb[getUnitCounter() /]cf5f-d44b-48bf-ad52-f[getUnitCounter() /]59f7[getUnitCounter() /]47f</ObjectId>
+		</data>
+  	  </addData>
+	  </pou>[/for]
+    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+	<addData>
+[getGlobalVars(Proj) /]
+      <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      	<ProjectStructure>
+[getProjectStructure(Proj) /]
+      	</ProjectStructure>
+      </data>
+  	</addData>
+</project>
+[/file]
+[/template]
+
+[template private getProjectStructure(Proj : Project)]
+          [comment <Object Name="[Proj.name _Control" ObjectId="9b145e5f-9d71-4724-a8d2-6526a73ee712" /> /]
+[initCounter() /]
+[for (globalVar : GlobalVarList | Proj.globalVars) ]
+[addUpCounter() /]
+          <Object Name="[globalVar.name /]" ObjectId="[getCounter() /]d145e5f-[getCounter() /]b71-4724-a8b2-[getCounter() /]526a73ee712" />
+[/for]
+[initCounter() /]
+[for (unit : ProgramOrganisationUnit | Proj.units) ]
+[addUpCounter() /]
+		  <Object Name="[unit.name /]" ObjectId="bb[getUnitCounter() /]cf5f-d44b-48bf-ad52-f[getUnitCounter() /]59f7[getUnitCounter() /]47f" />
+[/for]
+[/template]
+
+[template public getGlobalVars(Proj : Project) post(trim())]
+[initCounter() /]
+[for (globalVar : GlobalVarList | Proj.globalVars) ]
+[addUpCounter() /]
+		  <data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
+		  	<globalVars name="[globalVar.name /]">
+[for(var : PlcVariable | globalVar.vars) ]
+			  [getVars(var) /]
+[/for]
+              <addData>
+              	<data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>[getCounter() /]d145e5f-[getCounter() /]b71-4724-a8b2-[getCounter() /]526a73ee712</ObjectId>
+              	</data>
+              </addData>
+          	</globalVars>
+		  </data>
+[/for]
+[/template]
+
+[template public getProgram(prog : Program) post(trim())]
+<pou name="[prog.name /]" pouType="program">
+  <interface>
+	[getDeclaration(prog.interface) /]
+  </interface>
+  <body>
+	<ST>
+	  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+		[let spec : StructuredText = prog.specification]
+		[getSpecification(spec) /]
+		[/let]  
+	  </xhtml>
+	</ST>
+  </body>
+[/template]
+
+[template public getFunction(func : Function) post(trim())]
+<pou name="[func.name /]" pouType="function">
+  <interface>
+	[getDeclaration(func.interface) /]
+  </interface>
+  <body>
+	<ST>
+	  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+		[let spec : StructuredText = func.specification]
+		[getSpecification(spec) /]
+		[/let]	  
+	  </xhtml>
+	</ST>
+  </body>
+[/template]
+
+[template public getFunctionBlock(funcB : FunctionBlock) post(trim())]
+<pou name="[funcB.name /]" pouType="functionBlock">
+  <interface>
+	[getDeclaration(funcB.interface) /]
+  </interface>
+  <body>
+	<ST>
+	  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+		[let spec : StructuredText = funcB.specification]
+		[getSpecification(spec) /]
+		[/let]	  
+	  </xhtml>
+	</ST>
+  </body>
+[/template]
+
+[comment begin of declaration part /]
+[template public getDeclaration(decl : Declaration)]
+[if (decl.inputVars.oclIsUndefined())][else]
+  <inputVars>
+[for (vars : InputVariable | decl.inputVars) ]
+  [getInputVars(vars) /][/for]
+  </inputVars>
+[/if]
+[if (decl.outputVars.oclIsUndefined())][else]
+  <outputVars>
+[for (vars : OutputVariable | decl.outputVars) ]
+  [getOutputVars(vars) /][/for]
+  </outputVars>
+[/if]
+[if (decl.localVars.oclIsUndefined())][else]
+  <localVars>
+[for (vars : LocalVariable | decl.localVars) ]
+  [getLocalVars(vars) /][/for]
+  </localVars>
+[/if]
+[/template]
+
+[template public getInputVars(inVars : InputVariable)]
+[for (vars : PlcVariable | inVars.vars)]
+	[getVars(vars) /]
+[/for]
+[/template]
+
+[template public getOutputVars(outVars : OutputVariable)]
+[for (vars : PlcVariable | outVars.vars)]
+	[getVars(vars) /]
+[/for]
+[/template]
+
+[template public getLocalVars(localVars : LocalVariable)]
+[for (vars : PlcVariable | localVars.vars)]
+	[getVars(vars) /]
+[/for]
+[/template]
+
+[template public getVars(vars : PlcVariable)]
+[let typ : Type = vars.type]
+<variable name="[vars.name /]">
+  <type>
+	[if (typ.oclIsTypeOf(BOOL))]
+	  <BOOL />
+	[elseif (typ.oclIsTypeOf(INT)) ]
+	  <INT />
+	[elseif (typ.oclIsTypeOf(REAL))]
+	  <REAL />
+	[elseif (typ.oclIsTypeOf(TIME))]
+	  <TIME />
+	[elseif (typ.oclIsTypeOf(Derived))]
+	[let derived : Derived = vars.type]
+	  <derived name="[derived.name /]" />
+	[/let]
+	[/if]
+  </type>
+[if (vars.initialValue.oclIsUndefined())]
+[else]
+[let initVal : InitialValue = vars.initialValue]
+  <initialValue>
+	<simpleValue value="[initVal.value.toString() /]" />
+  </initialValue>
+[/let]
+[/if]
+[if (vars.documentation.oclIsUndefined())]
+[else]
+  <documentation>
+	<xhtml xmlns="http://www.w3.org/1999/xhtml"> [vars.documentation.docuText.toString() /] </xhtml>
+  </documentation>
+[/if]
+</variable>
+[/let]
+[/template]
+[comment end of declaration part /]
+
+[comment begin of structured text part /]
+[template public getSpecification(spec : StructuredText)]
+[for (exprsn : Expression | spec.embeddedStatements)]
+[getExpresion(exprsn) /]
+[/for]
+[/template]
+
+[template public getExpresion(exprsn : Expression) post(trim())]
+[comment sturctured text /]
+[if (exprsn.oclIsTypeOf(Statement))][let exp : Statement = exprsn][statement(exp) /][/let][/if]
+[if (exprsn.oclIsTypeOf(Comment))][let exp : Comment = exprsn][comm(exp) /][/let][/if]
+[if (exprsn.oclIsTypeOf(Assignment))][let exp : Assignment = exprsn][assignment(exp) /];[/let][/if]
+[if (exprsn.oclIsTypeOf(EmptyExpresion))][let exp : EmptyExpresion = exprsn][emptyExp(exp) /][/let][/if]
+[if (exprsn.oclIsTypeOf(BooleanAssignment))][let exp : BooleanAssignment = exprsn][booleanAss(exp) /];[/let][/if]
+[if (exprsn.oclIsTypeOf(If))][let expIF : If = exprsn][ifExprsn(expIF) /][/let][/if]
+[if (exprsn.oclIsTypeOf(ElsIf))][let expIF : ElsIf = exprsn][elseifExprsn(expIF) /][/let][/if]
+[if (exprsn.oclIsTypeOf(Else))][let expIF : Else = exprsn][elseExprsn(expIF) /][/let][/if]
+[if (exprsn.oclIsTypeOf(While))][let expIF : While = exprsn][whileExprsn(expIF) /][/let][/if]
+[if (exprsn.oclIsTypeOf(Call))][let exp : Call = exprsn][call(exp) /][/let][/if]
+[/template]
+
+[template public ifExprsn(exp : If)]
+IF [exp.condition.term /] THEN
+[for (exprsn : Expression | exp.embeddedStatements)]
+	[getExpresion(exprsn) /]
+[/for]
+END_IF
+[/template]
+
+[template public elseifExprsn(exp : ElsIf)]
+ELSIF [exp.condition.term /] THEN
+[for (exprsn : Expression | exp.embeddedStatements)]
+	[getExpresion(exprsn) /][/for]
+[/template]
+
+[template public elseExprsn(exp : Else)]
+ELSE
+[for (exprsn : Expression | exp.embeddedStatements)]
+	[getExpresion(exprsn) /]
+[/for]
+[/template]
+
+[template public whileExprsn(exp : While)]
+[let cond : Condition = exp.breakCondition]
+WHILE [if(cond.term.toString().contains('<'))][cond.term.toString().replace('<', '&lt;') /][elseif (cond.term.toString().contains('>'))][cond.term.toString().replace('>', '&gt;') /][cond.term /][else][/if] DO
+[/let]
+[for (exprsn : Expression | exp.embeddedStatements)]
+[getExpresion(exprsn)/]
+[/for]
+END_WHILE;
+[/template]
+
+[template public statement(exp : Statement)]
+[for (state : Statement | exp)][for (exprsn : Expression | state.embeddedStatements)][getExpresion(exprsn) /][/for][/for]
+[/template]
+
+[template public comm(exp : Comment)]
+(****** [exp.text /] ******)
+[/template]
+
+[template public emptyExp(exp : EmptyExpresion)]
+;
+[/template]
+
+[template public assignment(exp : Assignment)]
+[exp.variable /] := [if (exp.value.toString().contains('>'))][exp.value.toString().replace('>', '&gt;') /][elseif (exp.value.toString().contains('<'))][exp.value.toString().replace('<', '&lt;') /][else][exp.value /][/if]
+[/template]
+
+[template public booleanAss(exp : BooleanAssignment)]
+[exp.variable /] := [exp.value /]
+[/template]
+
+[template public timeAss(exp : TimeAssignment)]
+[exp.variable /] := t#[exp.time /][if(exp.timeType.toString().equalsIgnoreCase('Seconds'))]s[else]ms[/if]
+[/template]
+
+[template public call(exp : Call)  post(trim())]
+[initCounter() /]
+[exp.instanceName /]([superAss(exp.instanceVars->at(1)) /][if(exp.instanceVars->size()>1)], [superAss(exp.instanceVars->at(2)) /][/if][if(exp.instanceVars->size()>2)], [superAss(exp.instanceVars->at(3)) /][/if][if(exp.instanceVars->size()>3)], [superAss(exp.instanceVars->at(4)) /][/if][if(exp.instanceVars->size()>4)], [superAss(exp.instanceVars->at(5)) /][/if][if(exp.instanceVars->size()>5)], [superAss(exp.instanceVars->at(6)) /][/if][if(exp.instanceVars->size()>6)], [superAss(exp.instanceVars->at(7)) /][/if]);
+[/template]
+
+[template public superAss(exp : SuperAssignment)  post(trim())]
+[if (exp.oclIsTypeOf(TimeAssignment))][let ass : TimeAssignment = exp][timeAss(ass) /][/let][/if]
+[if (exp.oclIsTypeOf(BooleanAssignment))][let ass : BooleanAssignment = exp][booleanAss(ass) /][/let][/if]
+[if (exp.oclIsTypeOf(Assignment))][let ass : Assignment = exp][assignment(ass) /][/let][/if]
+[/template]
+
+[query public initCounter() : String = invoke('org.eclipse.acceleo.pclcode.gen.st.service.ResourceCounter', 'initResourceCounter()', Sequence{}) /]
+
+[query public addUpCounter() : String = invoke('org.eclipse.acceleo.pclcode.gen.st.service.ResourceCounter', 'addUpCounter()', Sequence{}) /]
+
+[query public getCounter() : Integer = invoke('org.eclipse.acceleo.pclcode.gen.st.service.ResourceCounter', 'getCounter()', Sequence{}) /]
+
+[query public getUnitCounter() : Integer = invoke('org.eclipse.acceleo.pclcode.gen.st.service.ResourceCounter', 'getUnitCounter()', Sequence{}) /]
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plccode:Project
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:plccode="platform:/plugin/org.emftext.language.plccode/metamodel/plccode.ecore"
+    xsi:schemaLocation="platform:/plugin/org.emftext.language.plccode/metamodel/plccode.ecore plccode.ecore"
+    name=" bb">
+  <units xsi:type="plccode:FunctionBlock"
+      name="hhh">
+    <interface>
+      <localVars>
+        <vars
+            name="F1">
+          <type
+              xsi:type="plccode:Derived"
+              name="F_trig"/>
+        </vars>
+      </localVars>
+    </interface>
+    <specification
+        xsi:type="plccode:StructuredText">
+      <embeddedStatements
+          xsi:type="plccode:EmptyExpresion"/>
+    </specification>
+  </units>
+</plccode:Project>
